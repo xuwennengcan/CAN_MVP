@@ -1,44 +1,38 @@
 package com.can.mvp.base;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.can.mvp.application.MyApplication;
 import com.can.mvp.base.mvp.BasePresenter;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.utils.FragmentManagerUtil;
 
 /**
- * Created by can on 2018/3/2.
- *
+ * Created by can on 2018/3/6.
  */
 
-public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends AppCompatActivity implements IBaseView{
+public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends Fragment implements IBaseView{
 
     protected P presenter;
     protected M model;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init();
-    }
-
-    /**
-     * 初始化
-     */
-    private void init() {
-        MyApplication.getActivityManager().addActivty(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        FragmentManagerUtil.getInstance().pushFragment(this);
         int contentId = getContentId();
         if (contentId != 0) {
-            setContentView(contentId);
-            initView(null);
+            View view = inflater.inflate(contentId,null);
+            initView(view);
             bindMVP();
             initData();
             requestData();
+            return view;
         }
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private void bindMVP() {
@@ -49,15 +43,14 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        MyApplication.getActivityManager().removeActivity(this);
+        FragmentManagerUtil.getInstance().removeFragment(this);
         if(presenter!=null){
             presenter.unBindModel();
             presenter.unBindView();
         }
     }
-
 
     @Override
     public int getContentId() {

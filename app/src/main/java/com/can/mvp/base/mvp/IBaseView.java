@@ -1,5 +1,7 @@
 package com.can.mvp.base.mvp;
 
+import android.view.View;
+
 /**
  * Created by can on 2018/3/2.
  * MVP View
@@ -16,7 +18,7 @@ public interface IBaseView {
     /**
      * 初始化控件
      */
-     void initView();
+     void initView(View view);
 
     /**
      * 设置事件

@@ -1,11 +1,14 @@
 package com.can.mvp.ui;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseActivity;
-import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.fragment.HomeFragment;
 import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
 import com.can.mvp.presenter.home.HomePresenter;
@@ -17,6 +20,7 @@ import com.can.mvp.presenter.home.HomePresenter;
 public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implements HomeInterface.View {
 
     private TextView tv;
+    private LinearLayout ll;
 
     @Override
     public int getContentId() {
@@ -30,19 +34,19 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     }
 
     @Override
-    public IBaseView getBaseViewImpl() {
-        return this;
+    public void initView(View view) {
+        super.initView(view);
+        tv = (TextView) findViewById(R.id.tv);
+        ll = (LinearLayout) findViewById(R.id.ll_activity);
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.ll_activity, HomeFragment.getInstance());
+        transaction.commit();
     }
 
-    @Override
-    public void initView() {
-        super.initView();
-        tv = (TextView) findViewById(R.id.tv);
-    }
 
     @Override
     public void homeData(String content) {
         tv.setText("nnnn");
-        Toast.makeText(this,content,Toast.LENGTH_SHORT).show();
     }
 }
