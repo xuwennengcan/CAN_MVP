@@ -10,5 +10,8 @@ public class HomePresenter extends HomeInterface.Presenter {
     public void getHomeData() {
         String homeData = model.getHomeData();
         view.homeData(homeData);
+
     }
+
+
 }
