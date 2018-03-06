@@ -21,7 +21,6 @@ public interface HomeInterface {
 
      abstract class Presenter extends BasePresenter<View,Model> {
         public abstract void getHomeData();
-
     }
 
 }

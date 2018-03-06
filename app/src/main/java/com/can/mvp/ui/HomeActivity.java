@@ -27,7 +27,6 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     public void initData() {
         super.initData();
         presenter.getHomeData();
-
     }
 
     @Override

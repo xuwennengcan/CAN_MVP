@@ -10,6 +10,5 @@ public class HomeModel implements HomeInterface.Model {
     @Override
     public String getHomeData() {
         return "home Data";
-
     }
 }
