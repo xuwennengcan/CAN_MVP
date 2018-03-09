@@ -6,11 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.can.mvp.R;
-import com.can.mvp.utils.NetWorkUtil;
 import com.github.ybq.android.spinkit.style.ThreeBounce;
 
 /**
@@ -23,16 +21,13 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
     public static final int STATE_NETWORK_ERROR = 1;
     public static final int STATE_NETWORK_LOADING = 2;
     public static final int STATE_NODATA = 3;
-    public static final int STATE_NODATA_ENABLE_CLICK = 5;
-    public static final int STATE_NO_LOGIN = 6;
+    public static final int STATE_NO_LOGIN = 5;
     private ProgressBar animProgress;
     private boolean clickEnable = true;
     private final Context context;
     public ImageView img;
     private View.OnClickListener listener;
     private int mErrorState;
-    private RelativeLayout mLayout;
-    private RelativeLayout error_nodata_layout;
     private String strNoDataContent = "";
     private int imgResource = 0;
     private TextView tv;
@@ -57,8 +52,6 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
         this.tv = view.findViewById(R.id.tv_error_layout);
         this.error_loading_lin = view.findViewById(R.id.error_loading_lin);
         this.error_load_fail_lin = view.findViewById(R.id.error_load_fail_lin);
-        this.error_nodata_layout = view.findViewById(R.id.error_nodata_layout);
-        this.mLayout = view.findViewById(R.id.pageerrLayout);
         this.animProgress = view.findViewById(R.id.animProgress);
         ThreeBounce load_style = new ThreeBounce();
         this.animProgress.setIndeterminateDrawable(load_style);
@@ -69,7 +62,6 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
                 if(DataStateLayout.this.clickEnable && DataStateLayout.this.listener != null) {
                     DataStateLayout.this.listener.onClick(v);
                 }
-
             }
         });
         this.addView(view);
@@ -125,23 +117,17 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
     public void setErrorType(int i) {
         this.setVisibility(VISIBLE);
         switch(i) {
-            case STATE_NETWORK_ERROR:
+            case STATE_NETWORK_ERROR://网络错误
                 this.mErrorState = STATE_NETWORK_ERROR;
                 this.error_load_fail_lin.setVisibility(VISIBLE);
                 this.error_loading_lin.setVisibility(GONE);
-                if(NetWorkUtil.isNetWork(this.context)) {
-                    this.tv.setText(R.string.error_view_load_error_click_to_refresh);
-                    this.img.setBackgroundResource(R.drawable.img_pagefailed_bg);
-                } else {
-                    this.tv.setText(R.string.error_view_network_error_click_to_refresh);
-                    this.img.setBackgroundResource(R.drawable.img_no_net);
-                }
-
+                this.tv.setText(R.string.error_view_network_error_click_to_refresh);
+                this.img.setBackgroundResource(R.drawable.img_no_net);
                 this.img.setVisibility(VISIBLE);
                 this.animProgress.setVisibility(GONE);
                 this.clickEnable = true;
                 break;
-            case STATE_NETWORK_LOADING:
+            case STATE_NETWORK_LOADING://加载中...
                 this.error_load_fail_lin.setVisibility(GONE);
                 this.error_loading_lin.setVisibility(VISIBLE);
                 this.mErrorState = STATE_NETWORK_LOADING;
@@ -150,7 +136,7 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
                 this.tv.setText(R.string.error_view_loading);
                 this.clickEnable = false;
                 break;
-            case STATE_NODATA:
+            case STATE_NODATA://加载后-没有数据
                 this.error_load_fail_lin.setVisibility(VISIBLE);
                 this.error_loading_lin.setVisibility(GONE);
                 this.mErrorState = STATE_NODATA;
@@ -159,17 +145,17 @@ public class DataStateLayout extends LinearLayout implements View.OnClickListene
                 this.setTvNoDataContent();
                 this.clickEnable = true;
                 break;
-            case STATE_HIDE_LAYOUT:
+            case STATE_HIDE_LAYOUT://隐藏
                 this.setVisibility(GONE);
                 break;
-            case STATE_NODATA_ENABLE_CLICK:
-                this.error_load_fail_lin.setVisibility(VISIBLE);
-                this.error_loading_lin.setVisibility(GONE);
-                this.mErrorState = STATE_NODATA_ENABLE_CLICK;
-                this.img.setVisibility(VISIBLE);
-                this.animProgress.setVisibility(GONE);
-                this.setTvNoDataContent();
-                this.clickEnable = true;
+            case STATE_NO_LOGIN://用户未登录
+                this.error_load_fail_lin.setVisibility(GONE);
+                this.error_loading_lin.setVisibility(VISIBLE);
+                this.mErrorState = STATE_NO_LOGIN;
+                this.animProgress.setVisibility(VISIBLE);
+                this.img.setVisibility(GONE);
+                this.tv.setText(R.string.erro_no_login);
+                this.clickEnable = false;
         }
 
         try {

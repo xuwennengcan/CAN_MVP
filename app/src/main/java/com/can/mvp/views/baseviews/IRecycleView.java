@@ -139,17 +139,22 @@ public class IRecycleView extends SwipeRefreshLayout{
 
 
     public void refreshComlete() {
-        view_loading.setVisibility(GONE);
         if(NetWorkUtil.isNetWork(getContext())){
             if(recyclerView.getChildCount()==0){
-
+                view_loading.setErrorType(DataStateLayout.STATE_NODATA);
+                view_loading.setVisibility(VISIBLE);
             }else {
-
+                view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                view_loading.setVisibility(GONE);
             }
             llHeader.setVisibility(VISIBLE);
         }else{
             if(recyclerView.getChildCount()==0) {
+                view_loading.setErrorType(DataStateLayout.STATE_NETWORK_ERROR);
+                view_loading.setVisibility(VISIBLE);
                 llHeader.setVisibility(GONE);
+            }else {
+                view_loading.setVisibility(GONE);
             }
         }
         if(this.isRefreshing()) {
