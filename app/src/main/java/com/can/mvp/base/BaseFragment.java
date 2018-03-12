@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.can.mvp.base.mvp.BasePresenter;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.utils.AnnotationUtils;
 import com.can.mvp.utils.FragmentManagerUtil;
 
 /**
@@ -26,6 +27,7 @@ public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends 
         int contentId = getContentId();
         if (contentId != 0) {
             View view = inflater.inflate(contentId,null);
+            AnnotationUtils.initBindView(this,view);
             initView(view);
             bindMVP();
             initData();

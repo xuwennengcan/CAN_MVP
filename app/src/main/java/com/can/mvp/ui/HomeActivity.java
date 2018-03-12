@@ -12,6 +12,7 @@ import com.can.mvp.fragment.HomeFragment;
 import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
 import com.can.mvp.presenter.home.HomePresenter;
+import com.can.mvp.views.BindView;
 
 /**
  * Created by can on 2018/3/2.
@@ -19,6 +20,7 @@ import com.can.mvp.presenter.home.HomePresenter;
 
 public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implements HomeInterface.View {
 
+    @BindView(id = R.id.tv)
     private TextView tv;
     private LinearLayout ll;
 
@@ -36,7 +38,6 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     @Override
     public void initView(View view) {
         super.initView(view);
-        tv = (TextView) findViewById(R.id.tv);
         ll = (LinearLayout) findViewById(R.id.ll_activity);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

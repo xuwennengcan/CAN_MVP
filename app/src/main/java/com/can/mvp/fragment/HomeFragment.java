@@ -11,6 +11,7 @@ import com.can.mvp.base.BaseFragment;
 import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
 import com.can.mvp.presenter.home.HomePresenter;
+import com.can.mvp.views.BindView;
 import com.can.mvp.views.baseviews.DataStateLayout;
 import com.can.mvp.views.baseviews.IRecycleView;
 
@@ -40,13 +41,13 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
         return R.layout.fragment_home;
     }
 
+    @BindView(id = R.id.rv_fragment)
     private IRecycleView rv;
     private Button btn_loading,btn_no_network,btn_no_data,btn_no_login,btn_hide;
 
     @Override
     public void initView(View view) {
         super.initView(view);
-        rv = view.findViewById(R.id.rv_fragment);
         btn_loading = view.findViewById(R.id.btn_loading);
         btn_no_network = view.findViewById(R.id.btn_network_error);
         btn_no_data = view.findViewById(R.id.btn_no_data);

@@ -9,6 +9,7 @@ import com.can.mvp.application.MyApplication;
 import com.can.mvp.base.mvp.BasePresenter;
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBaseView;
+import com.can.mvp.utils.AnnotationUtils;
 
 /**
  * Created by can on 2018/3/2.
@@ -34,6 +35,7 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
         int contentId = getContentId();
         if (contentId != 0) {
             setContentView(contentId);
+            AnnotationUtils.initBindView(this);
             initView(null);
             bindMVP();
             initData();
