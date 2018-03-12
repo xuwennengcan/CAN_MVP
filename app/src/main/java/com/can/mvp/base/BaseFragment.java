@@ -33,6 +33,7 @@ public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends 
             initView(view);
             bindMVP();
             initData();
+            initEvent();
             requestData();
             return view;
         }
@@ -67,7 +68,7 @@ public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends 
     }
 
     @Override
-    public void onEvent() {
+    public void initEvent() {
 
     }
 

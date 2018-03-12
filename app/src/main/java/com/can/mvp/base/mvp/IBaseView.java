@@ -23,7 +23,7 @@ public interface IBaseView {
     /**
      * 设置事件
      */
-     void onEvent();
+     void initEvent();
 
     /**
      * 初始化数据

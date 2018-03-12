@@ -42,6 +42,7 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
             initView(null);
             bindMVP();
             initData();
+            initEvent();
             requestData();
         }
     }
@@ -75,7 +76,7 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
     }
 
     @Override
-    public void onEvent() {
+    public void initEvent() {
 
     }
 
