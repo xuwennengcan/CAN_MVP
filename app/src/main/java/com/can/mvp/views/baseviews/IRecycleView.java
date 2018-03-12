@@ -41,7 +41,7 @@ public class IRecycleView extends SwipeRefreshLayout{
     private boolean isLoadMore = false;
     private boolean isCanLoadMore = true;
     private IRecycleView.OnRefreshListener refreshListener;
-    private DataStateLayout view_loading;
+    public DataStateLayout view_loading;
 
     public IRecycleView(Context context) {
         super(context);
@@ -142,19 +142,16 @@ public class IRecycleView extends SwipeRefreshLayout{
         if(NetWorkUtil.isNetWork(getContext())){
             if(recyclerView.getChildCount()==0){
                 view_loading.setErrorType(DataStateLayout.STATE_NODATA);
-                view_loading.setVisibility(VISIBLE);
             }else {
-                view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
-                view_loading.setVisibility(GONE);
+                view_loading.setErrorType(DataStateLayout.STATE_HIDE_LAYOUT);
             }
             llHeader.setVisibility(VISIBLE);
         }else{
             if(recyclerView.getChildCount()==0) {
                 view_loading.setErrorType(DataStateLayout.STATE_NETWORK_ERROR);
-                view_loading.setVisibility(VISIBLE);
                 llHeader.setVisibility(GONE);
             }else {
-                view_loading.setVisibility(GONE);
+                view_loading.setErrorType(DataStateLayout.STATE_HIDE_LAYOUT);
             }
         }
         if(this.isRefreshing()) {
@@ -211,7 +208,6 @@ public class IRecycleView extends SwipeRefreshLayout{
                 if(IRecycleView.this.refreshListener != null) {
                     IRecycleView.this.refreshListener.onRefresh();
                 }
-
             }
         });
         this.setColorSchemeColors(new int[]{R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark});
@@ -262,10 +258,29 @@ public class IRecycleView extends SwipeRefreshLayout{
 
             }
         });
+        view_loading.setOnDataStateClickListener(new DataStateLayout.onDataStateClickListener() {
+            @Override
+            public void onDateStateClickListener(int state) {
+                if(state==DataStateLayout.STATE_NO_LOGIN){//未登录
+                    // TODO: 2018/3/12 去登录
+                }else if(state==DataStateLayout.STATE_NETWORK_ERROR){//网络错误
+                    view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                    if(refreshListener != null) {
+                        refreshListener.onRefresh();
+                    }
+                }else if(state==DataStateLayout.STATE_NODATA){//数据为空
+                    view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                    if(refreshListener != null) {
+                        refreshListener.onRefresh();
+                    }
+                }
+            }
+        });
     }
 
     public void setRefreshing(boolean refreshing) {
         super.setRefreshing(refreshing);
+        view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
         if(this.refreshListener != null && refreshing) {
             this.refreshListener.onRefresh();
         }
