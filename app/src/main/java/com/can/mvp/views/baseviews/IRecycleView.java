@@ -40,7 +40,7 @@ public class IRecycleView extends SwipeRefreshLayout{
     private int scrollDistance;
     private boolean isLoadMore = false;
     private boolean isCanLoadMore = true;
-    private IRecycleView.OnRefreshListener refreshListener;
+    private IRecycleView.OnIRecycleListener refreshListener;
     public DataStateLayout view_loading;
 
     public IRecycleView(Context context) {
@@ -137,7 +137,6 @@ public class IRecycleView extends SwipeRefreshLayout{
     }
 
 
-
     public void refreshComlete() {
         if(NetWorkUtil.isNetWork(getContext())){
             if(recyclerView.getChildCount()==0){
@@ -210,7 +209,7 @@ public class IRecycleView extends SwipeRefreshLayout{
                 }
             }
         });
-        this.setColorSchemeColors(new int[]{R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark});
+        this.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark});
     }
 
     private int getColorAccent() {
@@ -240,7 +239,6 @@ public class IRecycleView extends SwipeRefreshLayout{
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if(isEdit)
                     return;
-
                 Log.d(IRecycleView.this.TAG, "scrollY = " + scrollY + ",oldScrollY = " + oldScrollY);
                 IRecycleView.this.scrollDistance = scrollY;
                 int maxScrollAmount = v.getChildAt(0).getMeasuredHeight() - v.getHeight();
@@ -255,7 +253,6 @@ public class IRecycleView extends SwipeRefreshLayout{
                     textView.setText("已经全部加载完");
                     textView.setVisibility(VISIBLE);
                 }
-
             }
         });
         view_loading.setOnDataStateClickListener(new DataStateLayout.onDataStateClickListener() {
@@ -280,23 +277,33 @@ public class IRecycleView extends SwipeRefreshLayout{
 
     public void setRefreshing(boolean refreshing) {
         super.setRefreshing(refreshing);
-        view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
         if(this.refreshListener != null && refreshing) {
             this.refreshListener.onRefresh();
         }
+    }
 
+    /**
+     * 设置数据和网络及登录状态
+     * @param state
+     */
+    public void setState(int state){
+        view_loading.setErrorType(state);
+        if(state==DataStateLayout.STATE_NO_LOGIN)
+            this.setEnabled(false);
+        else
+            setEnabled(true);
     }
 
     public void autoRefresh() {
         this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
-                IRecycleView.this.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                IRecycleView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 IRecycleView.this.setRefreshing(true);
             }
         });
     }
 
-    public void setOnRefreshListener(IRecycleView.OnRefreshListener listener) {
+    public void setOnIRecycleListener(IRecycleView.OnIRecycleListener listener) {
         this.refreshListener = listener;
     }
 
@@ -345,7 +352,7 @@ public class IRecycleView extends SwipeRefreshLayout{
         return this.scrollView;
     }
 
-    public interface OnRefreshListener {
+    public interface OnIRecycleListener {
         void onRefresh();
 
         void onLoadMore();

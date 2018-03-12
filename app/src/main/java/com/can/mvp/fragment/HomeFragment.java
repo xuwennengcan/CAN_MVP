@@ -1,5 +1,7 @@
 package com.can.mvp.fragment;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ import io.reactivex.ObservableOnSubscribe;
  * Created by can on 2018/3/6.
  */
 
-public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implements HomeInterface.View, View.OnClickListener {
+public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implements HomeInterface.View, View.OnClickListener, IRecycleView.OnIRecycleListener {
 
     public static HomeFragment getInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -55,6 +57,7 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
         btn_no_data.setOnClickListener(this);
         btn_no_login.setOnClickListener(this);
         btn_hide.setOnClickListener(this);
+        rv.setOnIRecycleListener(this);
     }
 
     @Override
@@ -70,22 +73,42 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
 
     @Override
     public void onClick(View view) {
+        rv.setEnabled(true);
         switch (view.getId()){
             case R.id.btn_no_data:
-                rv.view_loading.setErrorType(DataStateLayout.STATE_NODATA);
+                rv.setState(DataStateLayout.STATE_NODATA);
                 break;
             case R.id.btn_loading:
-                rv.view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                rv.setState(DataStateLayout.STATE_NETWORK_LOADING);
                 break;
             case R.id.btn_hide:
-                rv.view_loading.setErrorType(DataStateLayout.STATE_HIDE_LAYOUT);
+                rv.setState(DataStateLayout.STATE_HIDE_LAYOUT);
                 break;
             case R.id.btn_no_login:
-                rv.view_loading.setErrorType(DataStateLayout.STATE_NO_LOGIN);
+                rv.setState(DataStateLayout.STATE_NO_LOGIN);
                 break;
             case R.id.btn_network_error:
-                rv.view_loading.setErrorType(DataStateLayout.STATE_NETWORK_ERROR);
+                rv.setState(DataStateLayout.STATE_NETWORK_ERROR);
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+      //  rv.refreshComlete();
+        handler.sendEmptyMessageDelayed(1,2000);
+    }
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            rv.refreshComlete();
+            return false;
+        }
+    });
+
+    @Override
+    public void onLoadMore() {
+
     }
 }

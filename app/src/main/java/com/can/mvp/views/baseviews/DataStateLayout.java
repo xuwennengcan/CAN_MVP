@@ -141,6 +141,7 @@ public class DataStateLayout extends LinearLayout{
                 this.mErrorState = STATE_NODATA;
                 this.error_load_fail_lin.setVisibility(VISIBLE);
                 this.error_loading_lin.setVisibility(GONE);
+                this.img.setBackgroundResource(R.drawable.img_no_data);
                 this.setTvNoDataContent();
                 this.clickEnable = true;
                 break;
@@ -151,19 +152,10 @@ public class DataStateLayout extends LinearLayout{
                 this.mErrorState = STATE_NO_LOGIN;
                 this.error_load_fail_lin.setVisibility(VISIBLE);
                 this.error_loading_lin.setVisibility(GONE);
+                this.img.setBackgroundResource(R.drawable.img_pagefailed_bg);
                 this.tv.setText(R.string.erro_no_login);
                 this.clickEnable = false;
         }
-
-        try {
-            if(this.imgResource != 0) {
-                this.img.setBackgroundResource(this.imgResource);
-            } else {
-                this.img.setBackgroundResource(R.drawable.img_no_data);
-            }
-        } catch (Exception varSTATE_NODATA) {
-        }
-
     }
 
     public void setNoDataContent(String noDataContent) {
@@ -187,7 +179,6 @@ public class DataStateLayout extends LinearLayout{
         if(visibility == GONE) {
             this.mErrorState = STATE_HIDE_LAYOUT;
         }
-
         super.setVisibility(visibility);
     }
 
