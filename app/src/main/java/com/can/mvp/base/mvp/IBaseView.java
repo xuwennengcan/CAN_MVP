@@ -40,4 +40,9 @@ public interface IBaseView {
      * @return
      */
      IBaseView getBaseViewImpl();
+
+    /**
+     * 点击事件
+     */
+    void setClick(View view);
 }

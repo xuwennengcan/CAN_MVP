@@ -1,7 +1,5 @@
 package com.can.mvp.ui;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,10 +37,7 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     public void initView(View view) {
         super.initView(view);
         ll = (LinearLayout) findViewById(R.id.ll_activity);
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.ll_activity, HomeFragment.getInstance());
-        transaction.commit();
+        changeFragment(R.id.ll_activity,HomeFragment.getInstance());
     }
 
 

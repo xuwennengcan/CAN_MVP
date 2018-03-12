@@ -23,7 +23,7 @@ import io.reactivex.ObservableOnSubscribe;
  * Created by can on 2018/3/6.
  */
 
-public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implements HomeInterface.View, View.OnClickListener, IRecycleView.OnIRecycleListener {
+public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implements HomeInterface.View, IRecycleView.OnIRecycleListener {
 
     public static HomeFragment getInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -43,37 +43,26 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
 
     @BindView(id = R.id.rv_fragment)
     private IRecycleView rv;
-    private Button btn_loading,btn_no_network,btn_no_data,btn_no_login,btn_hide;
+    @BindView(id = R.id.btn_loading,click = true)
+    private Button btn_loading;
+    @BindView(id = R.id.btn_network_error,click = true)
+    private Button btn_no_network;
+    @BindView(id = R.id.btn_no_data,click = true)
+    private Button btn_no_data;
+    @BindView(id = R.id.btn_no_login,click = true)
+    private Button btn_no_login;
+    @BindView(id = R.id.btn_hide,click = true)
+    private Button btn_hide;
 
     @Override
     public void initView(View view) {
         super.initView(view);
-        btn_loading = view.findViewById(R.id.btn_loading);
-        btn_no_network = view.findViewById(R.id.btn_network_error);
-        btn_no_data = view.findViewById(R.id.btn_no_data);
-        btn_no_login = view.findViewById(R.id.btn_no_login);
-        btn_hide = view.findViewById(R.id.btn_hide);
-        btn_loading.setOnClickListener(this);
-        btn_no_network.setOnClickListener(this);
-        btn_no_data.setOnClickListener(this);
-        btn_no_login.setOnClickListener(this);
-        btn_hide.setOnClickListener(this);
         rv.setOnIRecycleListener(this);
     }
 
     @Override
-    public void initData() {
-        super.initData();
-        presenter.getHomeData();
-    }
-
-    @Override
-    public void homeData(String content) {
-        Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onClick(View view) {
+    public void setClick(View view) {
+        super.setClick(view);
         rv.setEnabled(true);
         switch (view.getId()){
             case R.id.btn_no_data:
@@ -93,6 +82,18 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
                 break;
         }
     }
+
+    @Override
+    public void initData() {
+        super.initData();
+        presenter.getHomeData();
+    }
+
+    @Override
+    public void homeData(String content) {
+        Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public void onRefresh() {

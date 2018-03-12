@@ -140,17 +140,17 @@ public class IRecycleView extends SwipeRefreshLayout{
     public void refreshComlete() {
         if(NetWorkUtil.isNetWork(getContext())){
             if(recyclerView.getChildCount()==0){
-                view_loading.setErrorType(DataStateLayout.STATE_NODATA);
+                setState(DataStateLayout.STATE_NODATA);
             }else {
-                view_loading.setErrorType(DataStateLayout.STATE_HIDE_LAYOUT);
+                setState(DataStateLayout.STATE_HIDE_LAYOUT);
             }
             llHeader.setVisibility(VISIBLE);
         }else{
             if(recyclerView.getChildCount()==0) {
-                view_loading.setErrorType(DataStateLayout.STATE_NETWORK_ERROR);
+                setState(DataStateLayout.STATE_NETWORK_ERROR);
                 llHeader.setVisibility(GONE);
             }else {
-                view_loading.setErrorType(DataStateLayout.STATE_HIDE_LAYOUT);
+                setState(DataStateLayout.STATE_HIDE_LAYOUT);
             }
         }
         if(this.isRefreshing()) {
@@ -262,12 +262,12 @@ public class IRecycleView extends SwipeRefreshLayout{
                 if(state==DataStateLayout.STATE_NO_LOGIN){//未登录
                     // TODO: 2018/3/12 去登录
                 }else if(state==DataStateLayout.STATE_NETWORK_ERROR){//网络错误
-                    view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                    setState(DataStateLayout.STATE_NETWORK_LOADING);
                     if(refreshListener != null) {
                         refreshListener.onRefresh();
                     }
                 }else if(state==DataStateLayout.STATE_NODATA){//数据为空
-                    view_loading.setErrorType(DataStateLayout.STATE_NETWORK_LOADING);
+                    setState(DataStateLayout.STATE_NETWORK_LOADING);
                     if(refreshListener != null) {
                         refreshListener.onRefresh();
                     }
