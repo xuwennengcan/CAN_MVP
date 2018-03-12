@@ -202,6 +202,7 @@ public class IRecycleView extends SwipeRefreshLayout{
     }
 
     private void initSwipeRefreshLayout() {
+        this.setEnabled(false);
         super.setOnRefreshListener(new android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener() {
             public void onRefresh() {
                 if(IRecycleView.this.refreshListener != null) {
@@ -288,7 +289,7 @@ public class IRecycleView extends SwipeRefreshLayout{
      */
     public void setState(int state){
         view_loading.setErrorType(state);
-        if(state==DataStateLayout.STATE_NO_LOGIN)
+        if(state==DataStateLayout.STATE_NO_LOGIN||state==DataStateLayout.STATE_NETWORK_LOADING)
             this.setEnabled(false);
         else
             setEnabled(true);
