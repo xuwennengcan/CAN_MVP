@@ -36,12 +36,6 @@ public interface IBaseView {
      void requestData();
 
     /**
-     * 返回view的操作接口
-     * @return
-     */
-     IBaseView getBaseViewImpl();
-
-    /**
      * 点击事件
      */
     void setClick(View view);

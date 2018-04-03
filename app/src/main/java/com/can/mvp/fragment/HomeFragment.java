@@ -10,9 +10,7 @@ import com.can.mvp.R;
 import com.can.mvp.base.BaseBean;
 import com.can.mvp.base.BaseFragment;
 import com.can.mvp.bean.User;
-import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
-import com.can.mvp.presenter.home.HomePresenter;
 import com.can.mvp.views.BindView;
 import com.can.mvp.views.baseviews.DataStateLayout;
 import com.can.mvp.views.baseviews.IRecycleView;
@@ -21,7 +19,7 @@ import com.can.mvp.views.baseviews.IRecycleView;
  * Created by can on 2018/3/6.
  */
 
-public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implements HomeInterface.View, IRecycleView.OnIRecycleListener {
+public class HomeFragment extends BaseFragment implements HomeInterface.View, IRecycleView.OnIRecycleListener {
 
     public static HomeFragment getInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -84,7 +82,6 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
         user.setUserPhone("13455555555");
         user.setUserName("多啦C梦");
         user.setUserSex("未知");
-        presenter.setHomeData(user);
     }
 
     @Override

@@ -9,16 +9,14 @@ import com.can.mvp.base.BaseActivity;
 import com.can.mvp.base.BaseBean;
 import com.can.mvp.bean.User;
 import com.can.mvp.fragment.HomeFragment;
-import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
-import com.can.mvp.presenter.home.HomePresenter;
 import com.can.mvp.views.BindView;
 
 /**
  * Created by can on 2018/3/2.
  */
 
-public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implements HomeInterface.View {
+public class HomeActivity extends BaseActivity implements HomeInterface.View {
 
     @BindView(id = R.id.tv)
     private TextView tv;
@@ -39,7 +37,6 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
         user.setUserPhone("13611414180");
         user.setUserName("多啦B梦");
         user.setUserSex("未知");
-        presenter.setHomeData(user);
     }
 
     @Override
