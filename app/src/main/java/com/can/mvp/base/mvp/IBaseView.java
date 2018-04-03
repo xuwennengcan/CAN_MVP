@@ -13,7 +13,7 @@ public interface IBaseView {
      * 返回布局
      * @return
      */
-     int getContentId();
+     int getLayoutId();
 
     /**
      * 初始化控件

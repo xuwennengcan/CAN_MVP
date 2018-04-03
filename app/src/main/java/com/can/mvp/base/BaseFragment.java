@@ -26,7 +26,7 @@ public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentManagerUtil.getInstance().pushFragment(this);
-        int contentId = getContentId();
+        int contentId = getLayoutId();
         if (contentId != 0) {
             View view = inflater.inflate(contentId,null);
             AnnotationUtils.initBindView(this,view);
@@ -58,7 +58,7 @@ public class BaseFragment<M extends IBaseModel,P extends BasePresenter> extends 
     }
 
     @Override
-    public int getContentId() {
+    public int getLayoutId() {
         return 0;
     }
 

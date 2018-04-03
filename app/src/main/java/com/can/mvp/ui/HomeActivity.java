@@ -23,7 +23,7 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     private LinearLayout ll;
 
     @Override
-    public int getContentId() {
+    public int getLayoutId() {
         return R.layout.activity_home;
     }
 
@@ -43,6 +43,6 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
 
     @Override
     public void homeData(String content) {
-        tv.setText("nnnn");
+        tv.setText(content+"");
     }
 }

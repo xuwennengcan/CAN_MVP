@@ -35,7 +35,7 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
      */
     private void init() {
         MyApplication.getActivityManager().addActivty(this);
-        int contentId = getContentId();
+        int contentId = getLayoutId();
         if (contentId != 0) {
             setContentView(contentId);
             AnnotationUtils.initBindView(this);
@@ -66,7 +66,7 @@ public class BaseActivity<M extends IBaseModel,P extends BasePresenter> extends 
 
 
     @Override
-    public int getContentId() {
+    public int getLayoutId() {
         return 0;
     }
 
