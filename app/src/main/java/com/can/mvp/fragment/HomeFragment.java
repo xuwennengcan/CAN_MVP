@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.can.mvp.R;
+import com.can.mvp.base.BaseBean;
 import com.can.mvp.base.BaseFragment;
+import com.can.mvp.bean.User;
 import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
 import com.can.mvp.presenter.home.HomePresenter;
@@ -76,12 +78,19 @@ public class HomeFragment extends BaseFragment<HomeModel,HomePresenter> implemen
     @Override
     public void initData() {
         super.initData();
-        presenter.getHomeData();
+        User user = new User();
+        user.setUserAge("28");
+        user.setUserId("456789");
+        user.setUserPhone("13455555555");
+        user.setUserName("多啦C梦");
+        user.setUserSex("未知");
+        presenter.setHomeData(user);
     }
 
     @Override
-    public void homeData(String content) {
-        Toast.makeText(getActivity(),content,Toast.LENGTH_SHORT).show();
+    public void homeData(BaseBean bean) {
+        User user = (User) bean;
+        Toast.makeText(getActivity(),user.getUserName(),Toast.LENGTH_SHORT).show();
     }
 
 

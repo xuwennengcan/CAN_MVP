@@ -1,5 +1,7 @@
 package com.can.mvp.presenter.home;
 
+import com.can.mvp.base.BaseBean;
+
 /**
  * Created by can on 2018/3/2.
  */
@@ -7,9 +9,8 @@ package com.can.mvp.presenter.home;
 public class HomePresenter extends HomeInterface.Presenter {
 
     @Override
-    public void getHomeData() {
-        String homeData = model.getHomeData();
-        view.homeData(homeData);
+    public void setHomeData(BaseBean bean) {
+        view.homeData(bean);
     }
 
 

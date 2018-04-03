@@ -1,5 +1,6 @@
 package com.can.mvp.model.home;
 
+import com.can.mvp.bean.User;
 import com.can.mvp.presenter.home.HomeInterface;
 
 /**
@@ -7,8 +8,12 @@ import com.can.mvp.presenter.home.HomeInterface;
  */
 
 public class HomeModel implements HomeInterface.Model {
+
+
+
     @Override
-    public String getHomeData() {
-        return "home Data";
+    public User getHomeData() {
+
+        return new User();
     }
 }

@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseActivity;
+import com.can.mvp.base.BaseBean;
+import com.can.mvp.bean.User;
 import com.can.mvp.fragment.HomeFragment;
 import com.can.mvp.model.home.HomeModel;
 import com.can.mvp.presenter.home.HomeInterface;
@@ -30,7 +32,14 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
     @Override
     public void initData() {
         super.initData();
-        presenter.getHomeData();
+
+        User user = new User();
+        user.setUserAge("18");
+        user.setUserId("123456");
+        user.setUserPhone("13611414180");
+        user.setUserName("多啦B梦");
+        user.setUserSex("未知");
+        presenter.setHomeData(user);
     }
 
     @Override
@@ -42,7 +51,8 @@ public class HomeActivity extends BaseActivity<HomeModel,HomePresenter> implemen
 
 
     @Override
-    public void homeData(String content) {
-        tv.setText(content+"");
+    public void homeData(BaseBean bean) {
+        User user = (User) bean;
+        tv.setText(user.getUserName()+"");
     }
 }
