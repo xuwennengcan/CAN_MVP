@@ -288,7 +288,7 @@ public class IRecycleView extends SwipeRefreshLayout{
      * @param state
      */
     public void setState(int state){
-        view_loading.setErrorType(state);
+        view_loading.setState(state);
         if(state==DataStateLayout.STATE_NO_LOGIN||state==DataStateLayout.STATE_NETWORK_LOADING)
             this.setEnabled(false);
         else
