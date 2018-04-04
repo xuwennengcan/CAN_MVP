@@ -1,4 +1,7 @@
-package com.can.mvp.presenter.login;
+package com.can.mvp.mvps.presenters;
+
+import com.can.mvp.mvps.interfaces.LoginInterface;
+import com.can.mvp.mvps.models.LoginModel;
 
 /**
  * Created by can on 2018/4/3.
@@ -6,14 +9,14 @@ package com.can.mvp.presenter.login;
 
 public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.Model.onLoginFinishedListener {
     private LoginInterface.View loginView;
-    private LoginImpl loginModel;
+    private LoginModel loginModel;
 
-    public LoginPresenter(LoginInterface.View loginView, LoginImpl loginModel) {
+    public LoginPresenter(LoginInterface.View loginView, LoginModel loginModel) {
         this.loginView = loginView;
         this.loginModel = loginModel;
     }
 
-    @Override public void validateCredentials(String username, String password) {
+    @Override public void login(String username, String password) {
         if (loginView != null) {
             loginView.showProgress();
         }

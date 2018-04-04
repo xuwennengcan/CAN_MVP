@@ -1,4 +1,4 @@
-package com.can.mvp.presenter.login;
+package com.can.mvp.mvps.interfaces;
 
 import com.can.mvp.base.mvp.IBaseModel;
 import com.can.mvp.base.mvp.IBasePresenter;
@@ -19,16 +19,13 @@ public interface LoginInterface {
     }
 
     interface Model extends IBaseModel{
-        interface onLoginFinishedListener{
-            void onUsernameError();
-            void onPasswordError();
-            void onSuccess();
-        }
+
         void login(String username, String password, onLoginFinishedListener listener);
+
     }
 
     interface Presenter extends IBasePresenter{
-        void validateCredentials(String username, String password);
+        void login(String username, String password);
         void onDestroy();
     }
 

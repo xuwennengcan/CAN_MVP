@@ -1,5 +1,6 @@
 package com.can.mvp.ui;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -7,9 +8,9 @@ import android.widget.Toast;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseActivity;
-import com.can.mvp.presenter.login.LoginImpl;
-import com.can.mvp.presenter.login.LoginInterface;
-import com.can.mvp.presenter.login.LoginPresenter;
+import com.can.mvp.mvps.interfaces.LoginInterface;
+import com.can.mvp.mvps.models.LoginModel;
+import com.can.mvp.mvps.presenters.LoginPresenter;
 import com.can.mvp.views.BindView;
 
 /**
@@ -35,7 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginInterface.View{
     @Override
     public void initData() {
         super.initData();
-        presenter = new LoginPresenter(this,new LoginImpl());
+        presenter = new LoginPresenter(this,new LoginModel());
     }
 
     @Override
@@ -43,7 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginInterface.View{
         super.setClick(view);
         switch (view.getId()){
             case R.id.btn_submit:
-                presenter.validateCredentials(et_name.getText().toString().trim(),et_password.getText().toString().trim());
+                presenter.login(et_name.getText().toString().trim(),et_password.getText().toString().trim());
                 break;
         }
     }
@@ -77,5 +78,7 @@ public class LoginActivity extends BaseActivity implements LoginInterface.View{
     @Override
     public void navigateToHome() {
         Toast.makeText(this,"登录成功",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,HomeActivity.class);
+        startActivity(intent);
     }
 }

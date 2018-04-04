@@ -1,12 +1,13 @@
-package com.can.mvp.presenter.login;
+package com.can.mvp.mvps.models;
 
+import com.can.mvp.mvps.interfaces.LoginInterface;
 import com.can.mvp.utils.StringUtils;
 
 /**
  * Created by can on 2018/4/3.
  */
 
-public class LoginImpl implements LoginInterface.Model{
+public class LoginModel implements LoginInterface.Model {
 
 
     @Override

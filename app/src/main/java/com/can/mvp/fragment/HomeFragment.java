@@ -4,13 +4,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.can.mvp.R;
-import com.can.mvp.base.BaseBean;
 import com.can.mvp.base.BaseFragment;
 import com.can.mvp.bean.User;
-import com.can.mvp.presenter.home.HomeInterface;
+import com.can.mvp.mvps.interfaces.HomeInterface;
 import com.can.mvp.views.BindView;
 import com.can.mvp.views.baseviews.DataStateLayout;
 import com.can.mvp.views.baseviews.IRecycleView;
@@ -84,11 +82,6 @@ public class HomeFragment extends BaseFragment implements HomeInterface.View, IR
         user.setUserSex("未知");
     }
 
-    @Override
-    public void homeData(BaseBean bean) {
-        User user = (User) bean;
-        Toast.makeText(getActivity(),user.getUserName(),Toast.LENGTH_SHORT).show();
-    }
 
 
     @Override
@@ -107,6 +100,16 @@ public class HomeFragment extends BaseFragment implements HomeInterface.View, IR
 
     @Override
     public void onLoadMore() {
+
+    }
+
+    @Override
+    public void setUser(User user) {
+
+    }
+
+    @Override
+    public void error() {
 
     }
 }
