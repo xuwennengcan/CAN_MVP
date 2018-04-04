@@ -1,6 +1,6 @@
 package com.can.mvp.base.mvp;
 
-import com.can.mvp.bean.User;
+import com.can.mvp.bean.responseBean.User;
 
 /**
  * Created by can on 2018/3/2.
@@ -19,5 +19,11 @@ public interface IBaseModel {
         void onError();
         void onSuccess(User user);
     }
+
+    interface onGetDataFinishedListener{
+        void onError(String error);
+        void onSuccess(String result);
+    }
+
 
 }

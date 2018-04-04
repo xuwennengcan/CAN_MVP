@@ -6,18 +6,18 @@ import android.widget.TextView;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseActivity;
-import com.can.mvp.bean.User;
+import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.fragment.HomeFragment;
-import com.can.mvp.mvps.interfaces.HomeInterface;
 import com.can.mvp.mvps.models.HomeModel;
 import com.can.mvp.mvps.presenters.HomePresenter;
+import com.can.mvp.mvps.views.HomeView;
 import com.can.mvp.views.BindView;
 
 /**
  * Created by can on 2018/3/2.
  */
 
-public class HomeActivity extends BaseActivity implements HomeInterface.View {
+public class HomeActivity extends BaseActivity implements HomeView {
 
     @BindView(id = R.id.tv)
     private TextView tv;

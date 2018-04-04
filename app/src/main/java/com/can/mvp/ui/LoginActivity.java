@@ -8,16 +8,16 @@ import android.widget.Toast;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseActivity;
-import com.can.mvp.mvps.interfaces.LoginInterface;
 import com.can.mvp.mvps.models.LoginModel;
 import com.can.mvp.mvps.presenters.LoginPresenter;
+import com.can.mvp.mvps.views.LoginView;
 import com.can.mvp.views.BindView;
 
 /**
  * Created by can on 2018/4/3.
  */
 
-public class LoginActivity extends BaseActivity implements LoginInterface.View{
+public class LoginActivity extends BaseActivity implements LoginView{
 
     @BindView(id = R.id.et_name)
     private EditText et_name;
@@ -26,7 +26,7 @@ public class LoginActivity extends BaseActivity implements LoginInterface.View{
     @BindView(id = R.id.btn_submit,click = true)
     private Button btn_submit;
 
-    LoginInterface.Presenter presenter;
+    LoginPresenter presenter;
 
     @Override
     public int getLayoutId() {

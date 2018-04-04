@@ -1,20 +1,21 @@
 package com.can.mvp.mvps.presenters;
 
 import com.can.mvp.base.mvp.IBaseModel;
-import com.can.mvp.bean.User;
-import com.can.mvp.mvps.interfaces.HomeInterface;
+import com.can.mvp.base.mvp.IBasePresenter;
+import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.mvps.models.HomeModel;
+import com.can.mvp.mvps.views.HomeView;
 
 /**
  * Created by can on 2018/4/4.
  */
 
-public class HomePresenter implements HomeInterface.Presenter, IBaseModel.onGetUserFinishedListener {
+public class HomePresenter implements IBasePresenter.BaseHomePresenter, IBaseModel.onGetUserFinishedListener {
 
-    private HomeInterface.View view;
+    private HomeView view;
     private HomeModel model;
 
-    public HomePresenter(HomeInterface.View view,HomeModel model){
+    public HomePresenter(HomeView view, HomeModel model){
         this.view = view;
         this.model = model;
     }
@@ -22,7 +23,7 @@ public class HomePresenter implements HomeInterface.Presenter, IBaseModel.onGetU
     @Override
     public void getUser(String userName, String userPassword) {
         if(model!=null)
-            model.getUser(userName,userPassword,this);
+            model.onUser(userName,userPassword,this);
     }
 
     @Override

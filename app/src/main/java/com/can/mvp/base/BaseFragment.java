@@ -74,6 +74,11 @@ public class BaseFragment extends Fragment implements IBaseView,View.OnClickList
     }
 
     @Override
+    public void onNetWorkError() {
+
+    }
+
+    @Override
     public void onClick(View view) {
         setClick(view);
     }

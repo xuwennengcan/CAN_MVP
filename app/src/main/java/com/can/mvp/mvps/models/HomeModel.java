@@ -1,17 +1,16 @@
 package com.can.mvp.mvps.models;
 
-import com.can.mvp.bean.User;
-import com.can.mvp.mvps.interfaces.HomeInterface;
+import com.can.mvp.base.mvp.IBaseModel;
+import com.can.mvp.bean.responseBean.User;
 import com.can.mvp.utils.StringUtils;
 
 /**
  * Created by can on 2018/3/2.
  */
 
-public class HomeModel implements HomeInterface.Model {
+public class HomeModel  {
 
-    @Override
-    public void getUser(String userName, String userPassword, onGetUserFinishedListener listener) {
+    public void onUser(String userName, String userPassword, IBaseModel.onGetUserFinishedListener listener) {
         if(StringUtils.isEmpty(userName)){
             listener.onError();
             return;
@@ -20,6 +19,7 @@ public class HomeModel implements HomeInterface.Model {
             listener.onError();
             return;
         }
+
         User user = new User();
         user.setUserName(userName);
         user.setUserId(userPassword);

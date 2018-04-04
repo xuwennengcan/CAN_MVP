@@ -1,17 +1,19 @@
 package com.can.mvp.mvps.presenters;
 
-import com.can.mvp.mvps.interfaces.LoginInterface;
+import com.can.mvp.base.mvp.IBaseModel;
+import com.can.mvp.base.mvp.IBasePresenter;
 import com.can.mvp.mvps.models.LoginModel;
+import com.can.mvp.mvps.views.LoginView;
 
 /**
  * Created by can on 2018/4/3.
  */
 
-public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.Model.onLoginFinishedListener {
-    private LoginInterface.View loginView;
+public class LoginPresenter implements IBasePresenter.BaseLoginPresenter, IBaseModel.onLoginFinishedListener {
+    private LoginView loginView;
     private LoginModel loginModel;
 
-    public LoginPresenter(LoginInterface.View loginView, LoginModel loginModel) {
+    public LoginPresenter(LoginView loginView, LoginModel loginModel) {
         this.loginView = loginView;
         this.loginModel = loginModel;
     }

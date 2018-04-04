@@ -1,4 +1,4 @@
-package com.can.mvp.base;
+package com.can.mvp.bean;
 
 import java.io.Serializable;
 

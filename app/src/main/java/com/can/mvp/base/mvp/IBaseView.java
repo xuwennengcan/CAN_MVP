@@ -39,4 +39,9 @@ public interface IBaseView {
      * 点击事件
      */
     void setClick(View view);
+
+    /**
+     * 网络错误
+     */
+    void onNetWorkError();
 }

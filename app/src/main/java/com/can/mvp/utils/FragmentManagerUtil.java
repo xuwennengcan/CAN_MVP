@@ -25,7 +25,7 @@ public class FragmentManagerUtil {
         }
 
         if (FragmentStack == null) {
-            FragmentStack = new Stack<BaseFragment>();
+            FragmentStack = new Stack<>();
         }
 
         return instance;

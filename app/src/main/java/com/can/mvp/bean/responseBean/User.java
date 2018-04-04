@@ -1,6 +1,6 @@
-package com.can.mvp.bean;
+package com.can.mvp.bean.responseBean;
 
-import com.can.mvp.base.BaseBean;
+import com.can.mvp.bean.BaseBean;
 
 /**
  * Created by can on 2018/4/3.

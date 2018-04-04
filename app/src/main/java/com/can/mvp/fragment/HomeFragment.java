@@ -7,8 +7,8 @@ import android.widget.Button;
 
 import com.can.mvp.R;
 import com.can.mvp.base.BaseFragment;
-import com.can.mvp.bean.User;
-import com.can.mvp.mvps.interfaces.HomeInterface;
+import com.can.mvp.bean.responseBean.User;
+import com.can.mvp.mvps.views.HomeView;
 import com.can.mvp.views.BindView;
 import com.can.mvp.views.baseviews.DataStateLayout;
 import com.can.mvp.views.baseviews.IRecycleView;
@@ -17,7 +17,7 @@ import com.can.mvp.views.baseviews.IRecycleView;
  * Created by can on 2018/3/6.
  */
 
-public class HomeFragment extends BaseFragment implements HomeInterface.View, IRecycleView.OnIRecycleListener {
+public class HomeFragment extends BaseFragment implements HomeView, IRecycleView.OnIRecycleListener {
 
     public static HomeFragment getInstance() {
         HomeFragment fragment = new HomeFragment();

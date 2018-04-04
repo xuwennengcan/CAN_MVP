@@ -80,6 +80,11 @@ public class BaseActivity extends AppCompatActivity implements IBaseView,View.On
     }
 
     @Override
+    public void onNetWorkError() {
+
+    }
+
+    @Override
     public void onClick(View view) {
         setClick(view);
     }
