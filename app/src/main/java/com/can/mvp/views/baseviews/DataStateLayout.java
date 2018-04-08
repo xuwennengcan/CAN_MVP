@@ -205,6 +205,10 @@ public class DataStateLayout extends LinearLayout{
         this.animProgress.setIndeterminateDrawable(drawable);
     }
 
+    /**
+     * 设置隐藏和显示
+     * @param visibility
+     */
     public void setVisibility(int visibility) {
         if(visibility == GONE) {
             this.mState = STATE_HIDE_LAYOUT;

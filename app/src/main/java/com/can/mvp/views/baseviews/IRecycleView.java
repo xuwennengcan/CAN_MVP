@@ -1,18 +1,14 @@
 package com.can.mvp.views.baseviews;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,19 +23,28 @@ import com.can.mvp.utils.NetWorkUtil;
 
 public class IRecycleView extends SwipeRefreshLayout{
 
-
-    protected final String TAG = "mycp";
+    //支持嵌套滑动的ScrollView
     private NestedScrollView scrollView;
     public RecyclerView recyclerView;
+    //加载中的TextView
     private TextView textView;
+    //加载中的loading
     private ProgressBar progressBar;
+    //加载更多时显示的View
     private LinearLayout llLoadMoreView;
+    //头部View
     private LinearLayout llHeader;
+    //尾部View
     private LinearLayout llFooter;
+    //滑动距离
     private int scrollDistance;
+    //是否为加载更多
     private boolean isLoadMore = false;
+    //能否加载更多
     private boolean isCanLoadMore = true;
+    //下拉刷新和上拉加载的监听
     private IRecycleView.OnIRecycleListener refreshListener;
+    //数据状态改变的展示
     public DataStateLayout view_loading;
 
     public IRecycleView(Context context) {
@@ -52,6 +57,10 @@ public class IRecycleView extends SwipeRefreshLayout{
         this.init(context);
     }
 
+    /**
+     * 初始化操作
+     * @param context 上下文
+     */
     private void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.layout_irecycleview, this);
         this.scrollView = (NestedScrollView)this.findViewById(R.id.scrollView);
@@ -67,12 +76,20 @@ public class IRecycleView extends SwipeRefreshLayout{
         this.loadMore(false);
     }
 
+    /**
+     * 添加头部View
+     * @param view
+     */
     public void addHeaderView(View view) {
         if(this.llHeader != null && view != null) {
             this.llHeader.addView(view);
         }
     }
 
+    /**
+     * 移除头部View
+     * @param view
+     */
     public void removeHeaderView(View view) {
         if(this.llHeader != null && view != null) {
             this.llHeader.removeView(view);
@@ -80,6 +97,10 @@ public class IRecycleView extends SwipeRefreshLayout{
 
     }
 
+    /**
+     * 移除头部View
+     * @param index 下标
+     */
     public void removeHeaderView(int index) {
         if(this.llHeader != null && index >= 0 && index < this.llHeader.getChildCount()) {
             this.llHeader.removeViewAt(index);
@@ -87,12 +108,20 @@ public class IRecycleView extends SwipeRefreshLayout{
 
     }
 
+    /**
+     * 移除所有头部View
+     */
     public void removeAllHeaderView() {
         if(this.llHeader != null) {
             this.llHeader.removeAllViews();
         }
     }
 
+    /**
+     * 获取头部View
+     * @param index 下标
+     * @return
+     */
     public boolean getHeadView(int index){
         if(this.llHeader!=null&& index >= 0 && index < this.llHeader.getChildCount()){
             return true;
@@ -100,14 +129,21 @@ public class IRecycleView extends SwipeRefreshLayout{
         return false;
     }
 
-
+    /**
+     * 添加尾部View
+     * @param view
+     */
     public void addFooterView(View view) {
         if(this.llFooter != null && view != null) {
             this.llFooter.addView(view);
         }
     }
 
-
+    /**
+     * 获取尾部View
+     * @param index 下标
+     * @return
+     */
     public boolean getFooterView(int index){
         if(this.llFooter!=null&& index >= 0 && index < this.llFooter.getChildCount()){
             return true;
@@ -115,13 +151,20 @@ public class IRecycleView extends SwipeRefreshLayout{
         return false;
     }
 
-
+    /**
+     * 移除尾部View
+     * @param view
+     */
     public void removeFooterView(View view) {
         if(this.llFooter != null && view != null) {
             this.llFooter.removeView(view);
         }
     }
 
+    /**
+     * 移除尾部View
+     * @param index 下标
+     */
     public void removeFooterView(int index) {
         if(this.llFooter != null && index >= 0 && index < this.llFooter.getChildCount()) {
             this.llFooter.removeViewAt(index);
@@ -129,26 +172,31 @@ public class IRecycleView extends SwipeRefreshLayout{
 
     }
 
+    /**
+     * 移除所有尾部View
+     */
     public void removeAllFooterView() {
         if(this.llFooter != null) {
             this.llFooter.removeAllViews();
         }
     }
 
-
+    /**
+     * 刷新完成后的操作
+     */
     public void refreshComlete() {
-        if(NetWorkUtil.isNetWork(getContext())){
-            if(recyclerView.getChildCount()==0){
+        if(NetWorkUtil.isNetWork(getContext())){//网络正常时
+            if(recyclerView.getChildCount()==0){//空数据时
                 setState(DataStateLayout.STATE_NODATA);
-            }else {
+            }else {//非空数据时
                 setState(DataStateLayout.STATE_HIDE_LAYOUT);
             }
             llHeader.setVisibility(VISIBLE);
-        }else{
-            if(recyclerView.getChildCount()==0) {
+        }else{//无网络时
+            if(recyclerView.getChildCount()==0) {//没有数据时
                 setState(DataStateLayout.STATE_NETWORK_ERROR);
                 llHeader.setVisibility(GONE);
-            }else {
+            }else {//有数据时
                 setState(DataStateLayout.STATE_HIDE_LAYOUT);
             }
         }
@@ -159,6 +207,10 @@ public class IRecycleView extends SwipeRefreshLayout{
         }
     }
 
+    /**
+     * 加载更多
+     * @param loading 是否能加载更多
+     */
     public void loadMore(boolean loading) {
         if(loading) {
             this.progressBar.setVisibility(VISIBLE);
@@ -171,10 +223,10 @@ public class IRecycleView extends SwipeRefreshLayout{
         }
     }
 
-    public void loadMoreNoData() {
-        this.loadMoreNoData("");
-    }
-
+    /**
+     * 没有更多数据的展示
+     * @param text 展示文字
+     */
     public void loadMoreNoData(String text) {
         this.progressBar.setVisibility(GONE);
         this.textView.setText(TextUtils.isEmpty(text)?"已经全部加载完":text);
@@ -182,6 +234,9 @@ public class IRecycleView extends SwipeRefreshLayout{
         requestLayout();
     }
 
+    /**
+     * 设置可以加载更多
+     */
     public void setIsCanLoadMore(){
         this.progressBar.setVisibility(VISIBLE);
         this.textView.setVisibility(VISIBLE);
@@ -190,7 +245,10 @@ public class IRecycleView extends SwipeRefreshLayout{
         this.isLoadMore = false;
     }
 
-
+    /**
+     * 设置是否可以加载更多
+     * @param flag
+     */
     public void setCanLoadMore(boolean flag){
         if(flag)
             this.llLoadMoreView.setVisibility(VISIBLE);
@@ -198,6 +256,9 @@ public class IRecycleView extends SwipeRefreshLayout{
             this.llLoadMoreView.setVisibility(GONE);
     }
 
+    /**
+     * 初始化刷新操作
+     */
     private void initSwipeRefreshLayout() {
         this.setEnabled(false);
         super.setOnRefreshListener(new android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener() {
@@ -210,23 +271,11 @@ public class IRecycleView extends SwipeRefreshLayout{
         this.setColorSchemeResources(new int[]{R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark});
     }
 
-    private int getColorAccent() {
-        int accentColor = 16750592;
-        int[] attrsArray = new int[]{R.attr.colorAccent};
-        TypedArray typedArray = this.getContext().obtainStyledAttributes(attrsArray);
-
-        try {
-            accentColor = typedArray.getColor(0, accentColor);
-        } catch (Exception var5) {
-            var5.printStackTrace();
-        }
-
-        typedArray.recycle();
-        return accentColor;
-    }
-
-
+    /**
+     * 初始化RecycleView
+     */
     private void initRecyclerView() {
+        this.verticalLayoutManager();
         this.recyclerView.setNestedScrollingEnabled(false);
         this.scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -263,6 +312,10 @@ public class IRecycleView extends SwipeRefreshLayout{
         });
     }
 
+    /**
+     * 设置刷新
+     * @param refreshing
+     */
     public void setRefreshing(boolean refreshing) {
         super.setRefreshing(refreshing);
         if(this.refreshListener != null && refreshing) {
@@ -282,64 +335,65 @@ public class IRecycleView extends SwipeRefreshLayout{
             setEnabled(true);
     }
 
-    public void autoRefresh() {
-        this.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            public void onGlobalLayout() {
-                IRecycleView.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                IRecycleView.this.setRefreshing(true);
-            }
-        });
-    }
-
+    /**
+     * 设置刷新监听
+     * @param listener
+     */
     public void setOnIRecycleListener(IRecycleView.OnIRecycleListener listener) {
         this.refreshListener = listener;
     }
 
+    /**
+     * 获取Recycleview
+     * @return RecycleView
+     */
     public RecyclerView getRecyclerView() {
         return this.recyclerView;
     }
 
+    /**
+     * 设置为竖直滚动
+     * @return
+     */
     public RecyclerView verticalLayoutManager() {
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
-        manager.setOrientation(1);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
         this.getRecyclerView().setLayoutManager(manager);
         return this.getRecyclerView();
     }
 
+    /**
+     * 设置为水平滚动
+     * @return
+     */
     public RecyclerView horizontalLayoutManager() {
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
-        manager.setOrientation(0);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         this.getRecyclerView().setLayoutManager(manager);
         return this.getRecyclerView();
     }
 
-    public RecyclerView gridLayoutManager(int spanCount) {
-        GridLayoutManager manager = new GridLayoutManager(this.getContext(), spanCount);
-        this.getRecyclerView().setLayoutManager(manager);
-        return this.getRecyclerView();
-    }
-
-    public RecyclerView verticalStaggeredLayoutManager(int spanCount) {
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(spanCount, 1);
-        this.getRecyclerView().setLayoutManager(manager);
-        return this.getRecyclerView();
-    }
-
-    public RecyclerView horizontalStaggeredLayoutManager(int spanCount) {
-        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(spanCount, 0);
-        this.getRecyclerView().setLayoutManager(manager);
-        return this.getRecyclerView();
-    }
-
+    /**
+     * 设置适配器
+     * @param adapter
+     * @return
+     */
     public RecyclerView setAdapter(RecyclerView.Adapter adapter) {
         this.getRecyclerView().setAdapter(adapter);
         return this.getRecyclerView();
     }
 
+    /**
+     * 获取NestedScrollView
+     * @return NestedScrollView
+     */
     public NestedScrollView getScrollView() {
         return this.scrollView;
     }
 
+    /***
+     * 监听接口
+     */
     public interface OnIRecycleListener {
         void onRefresh();
 
