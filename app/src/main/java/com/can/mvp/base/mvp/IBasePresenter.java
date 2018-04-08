@@ -5,6 +5,7 @@ import com.can.mvp.bean.requestBean.BaseRequestBean;
 /**
  * Created by can on 2018/3/2.
  * MVP Presenter
+ * 负责View和Model层之间的交互
  */
 
 public interface IBasePresenter {

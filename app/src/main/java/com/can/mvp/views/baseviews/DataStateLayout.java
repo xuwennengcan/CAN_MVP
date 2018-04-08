@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.can.mvp.R;
-import com.github.ybq.android.spinkit.style.ThreeBounce;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 /**
  * 数据状态显示布局
@@ -88,7 +88,7 @@ public class DataStateLayout extends LinearLayout{
         this.ll_after_loading = view.findViewById(R.id.ll_after_loading);
         this.animProgress = view.findViewById(R.id.animProgress);
         this.tv_loading = view.findViewById(R.id.tv_loading);
-        this.setProgressStyle(new ThreeBounce());
+        this.setProgressStyle(new DoubleBounce());
         this.setBackgroundResource(R.color.color_bg_layout_data);
         this.ll_after_loading.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

@@ -5,6 +5,7 @@ import android.view.View;
 /**
  * Created by can on 2018/3/2.
  * MVP View
+ * 对应于Activity，负责View的绘制以及与用户交互
  */
 
 public interface IBaseView {

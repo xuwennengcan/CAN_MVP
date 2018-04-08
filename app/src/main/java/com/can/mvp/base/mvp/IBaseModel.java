@@ -5,6 +5,7 @@ import com.can.mvp.bean.responseBean.User;
 /**
  * Created by can on 2018/3/2.
  * MVP Model
+ * BaseModel 业务逻辑和数据模型
  */
 
 public interface IBaseModel {

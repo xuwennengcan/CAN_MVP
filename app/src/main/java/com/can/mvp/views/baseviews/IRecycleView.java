@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -193,8 +192,6 @@ public class IRecycleView extends SwipeRefreshLayout{
 
 
     public void setCanLoadMore(boolean flag){
-        if(!isEdit)
-            setIsCanLoadMore();
         if(flag)
             this.llLoadMoreView.setVisibility(VISIBLE);
         else
@@ -228,24 +225,14 @@ public class IRecycleView extends SwipeRefreshLayout{
         return accentColor;
     }
 
-    public void setIsEdit(boolean flag){
-        isEdit = flag;
 
-    }
-
-    private boolean isEdit = false ; //是否在编辑中
     private void initRecyclerView() {
         this.recyclerView.setNestedScrollingEnabled(false);
         this.scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(isEdit)
-                    return;
-                Log.d(IRecycleView.this.TAG, "scrollY = " + scrollY + ",oldScrollY = " + oldScrollY);
                 IRecycleView.this.scrollDistance = scrollY;
                 int maxScrollAmount = v.getChildAt(0).getMeasuredHeight() - v.getHeight();
-                Log.d(IRecycleView.this.TAG, "scrollDistance = " + IRecycleView.this.scrollDistance + ",maxScrollAmount = " + maxScrollAmount);
                 if(IRecycleView.this.scrollDistance >= maxScrollAmount  && !IRecycleView.this.isRefreshing() && !IRecycleView.this.isLoadMore && IRecycleView.this.isCanLoadMore) {
-                    Log.d(IRecycleView.this.TAG, "加载中...");
                     if(IRecycleView.this.refreshListener != null) {
                         IRecycleView.this.loadMore(true);
                         IRecycleView.this.refreshListener.onLoadMore();
