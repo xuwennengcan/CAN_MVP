@@ -1,5 +1,7 @@
 package com.can.mvp.base.mvp;
 
+import android.graphics.Bitmap;
+
 import com.can.mvp.bean.responseBean.User;
 
 /**
@@ -24,6 +26,11 @@ public interface IBaseModel {
     interface onGetDataFinishedListener{
         void onError(String error);
         void onSuccess(String result);
+    }
+
+    interface onQRCodeListener{
+        void onDataError(String error);
+        void onSuccess(Bitmap bitmap);
     }
 
 

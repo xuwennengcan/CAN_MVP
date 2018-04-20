@@ -1,5 +1,8 @@
 package com.can.mvp.base.mvp;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
 import com.can.mvp.bean.requestBean.BaseRequestBean;
 
 /**
@@ -22,6 +25,12 @@ public interface IBasePresenter {
 
     interface BasePresenter{
         void getData(BaseRequestBean baseRequestBean);
+        void onDestroy();
+    }
+
+    interface BaseQRCodePresenter{
+        void getQRCode(Context context, String content, Bitmap bitmp);
+        void saveImageToGallery(Context context,Bitmap bitmap);
         void onDestroy();
     }
 
