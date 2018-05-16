@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
-//apply plugin: 'com.android.library'
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "com.can.mvp"
+//        applicationId "com.can.mvp"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -18,11 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+            mavenCentral()
+            maven { url 'https://maven.google.com' }
+        }
+    }
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
-        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
         compile 'com.android.support:appcompat-v7:26.+'
         testCompile 'junit:junit:4.12'
         //导入RxJava
@@ -35,8 +39,8 @@ android {
         //导入Tablayout
         compile 'com.android.support:design:23.3.0'
         //导入kotlin
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+//        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
         // Retrofit库
         compile 'com.squareup.okhttp3:okhttp:3.1.2'
         // Okhttp库
