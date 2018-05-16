@@ -1,11 +1,10 @@
-//apply plugin: 'com.android.application'
-apply plugin: 'com.android.library'
-
+apply plugin: 'com.android.application'
+//apply plugin: 'com.android.library'
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        //applicationId "com.can.mvp"
+        applicationId "com.can.mvp"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -46,3 +45,6 @@ android {
     }
 }
 
+dependencies {
+    compile project(':library')
+}
